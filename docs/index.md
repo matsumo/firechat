@@ -269,3 +269,4 @@ You may find it useful to interact directly with the Firebase data when building
 To lock down your Firechat data, you can use Firebase's builtin
 [Security features](https://www.firebase.com/docs/security-quickstart.html?utm_source=docs&utm_medium=site&utm_campaign=firechat).  For some example
 security rules for Firechat, see these [example rules on Github](https://github.com/firebase/firechat/tree/master/rules.json).
+
