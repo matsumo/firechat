@@ -1,6 +1,5 @@
 ---
 layout: docs
-permalink: index.html
 ---
 
 <a name="overview"> </a>
