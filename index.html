@@ -223,9 +223,14 @@
   </script>
 
   <!-- Twitter / Facebook / Google -->
-  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+  <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
   <div id="fb-root"></div>
   <script>
+    // If loaded on GitHub pages, redirect to Firebase-hosted version.
+    if (window.location.host === 'firebase.github.io') {
+      window.location = window.location.href.replace('firebase.github.io/firechat', 'firechat.firebaseapp.com')
+    }
+
     (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
