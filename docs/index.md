@@ -27,7 +27,7 @@ Before getting started, you'll need to:
 To get up and running using the default interface, include the following before the `</body>` close tag on your page:
 
 {% highlight html %}
-<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+<script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 
 <!-- Download from https://github.com/firebase/Firechat -->
@@ -82,7 +82,7 @@ For more information, check out the documentation for [Firebase Custom Login](ht
 * To begin, include the Firebase Simple Login script include in your page:
 
 {% highlight html %}
-<script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
+<script src="https://cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js"></script>
 {% endhighlight %}
 
 * Next, enable your provider of choice in your Firebase account, at `https://<YOUR-FIREBASE>.firebaseio.com`. Social login services may require you to create and configure an application and an authorized origin for the request.
@@ -268,4 +268,3 @@ You may find it useful to interact directly with the Firebase data when building
 To lock down your Firechat data, you can use Firebase's builtin
 [Security features](https://www.firebase.com/docs/security-quickstart.html?utm_source=docs&utm_medium=site&utm_campaign=firechat).  For some example
 security rules for Firechat, see these [example rules on Github](https://github.com/firebase/firechat/tree/master/rules.json).
-
