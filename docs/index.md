@@ -7,7 +7,7 @@ layout: docs
 
 Firechat is a simple, extensible chat widget powered by [Firebase](https://firebase.com/?utm_source=docs&utm_medium=site&utm_campaign=firechat).
 
-It is intended to serve as a concise, documented foundation for chat products built on Firebase. It works out of the box, and is easily extended. Fork the repo to start extending and customizing!
+It is intended to serve as a concise, documented foundation for chat products built on Firebase. It works out of the box, and is easily extended.
 
 
 <a name="getting_started"> </a>
@@ -15,40 +15,49 @@ It is intended to serve as a concise, documented foundation for chat products bu
 
 Firechat works out of the box, provided that you include Firebase and Firechat in your application, and configure it to use your Firebase account.
 
-#### Prerequisites
+#### Prerequisites & Dependencies
 
 Before getting started, you'll need to:
 
-- [Download Firechat](https://github.com/firebase/firechat/archive/master.zip)
 - <a href="https://www.firebase.com/signup/?utm_source=docs&utm_medium=site&utm_campaign=firechat" target="_blank">Create a Firebase account</a> (it's free)
+- [Download Firechat](https://github.com/firebase/firechat/releases/latest)
+- Include [jQuery](http://jquery.com/) (v1.7 or later)
 
-#### Adding Dependencies
+Lastly, ***Firechat requires an authenticated Firebase reference***. Firebase supports authenticate with either your own custom authentication system or a number of built-in providers (more on this below).
 
-To get up and running using the default interface, include the following before the `</body>` close tag on your page:
-
-{% highlight html %}
-<script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-
-<!-- Download from https://github.com/firebase/Firechat -->
-<link rel="stylesheet" href="firechat-default.css" />
-<script src="firechat-default.js"></script>
-{% endhighlight %}
-
-#### Initializing Firechat
-
-To initialize Firechat, you must initialize Firebase, and then Firechat.  Here is a typical setup:
+Let's put it all together, using Twitter authentication in our example:
 
 {% highlight html %}
-<div id="firechat-wrapper"></div>
-<script type='text/javascript'>
-  var chatRef = new Firebase('https://<your-firebase>.firebaseio.com/chat');
-  var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
-  chat.setUser('<user-id>', '<display-name>');
-</script>
-{% endhighlight %}
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <script src='https://cdn.firebase.com/js/client/1.0.21/firebase.js'></script>
+    <script src='https://cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
 
-In the above example, `chatRef` should be an authenticated Firebase reference. More on this below.
+    <!-- Download from https://github.com/firebase/firechat -->
+    <link rel='stylesheet' href='firechat-default.css' />
+    <script src='firechat-default.js'></script>
+  </head>
+  <body>
+    <script type='text/javascript'>
+      // Create a new Firebase reference, and a new instance of the Login client
+      var chatRef = new Firebase('https://<YOUR-FIREBASE>.firebaseio.com/chat');
+      var auth = new FirebaseSimpleLogin(chatRef, function(err, user) {
+        // Once authenticated, instantiate Firechat with our user id and user name
+        if (user) {
+          var chat = new FirechatUI(chatRef, document.getElementById('firechat-wrapper'));
+          chat.setUser(user.uid, user.displayName);
+        }
+      });
+    </script>
+    <div id='firechat-wrapper'>
+      <a href='#' onclick='auth.login("twitter");'>Login</a>
+    </div>
+  </body>
+</html>
+{% endhighlight %}
 
 
 <a name="authentication"> </a>
