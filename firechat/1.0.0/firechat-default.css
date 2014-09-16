@@ -375,7 +375,7 @@
   display: block;
   background-color: #ffffff;
 }
-/* Component: Dropdowns
+/* Component: dropdowns
 ============================================================ */
 #firechat .caret {
   display: inline-block;
@@ -389,10 +389,10 @@
   margin-top: 8px;
   margin-left: 2px;
 }
-#firechat .dropdown {
+#firechat .firechat-dropdown {
   position: relative;
 }
-#firechat .dropdown-toggle {
+#firechat .firechat-dropdown-toggle {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -401,16 +401,16 @@
   user-select: none;
   text-decoration: none;
 }
-#firechat .dropdown-toggle:focus,
-#firechat .dropdown-toggle:active {
+#firechat .firechat-dropdown-toggle:focus,
+#firechat .firechat-dropdown-toggle:active {
   outline: none;
   text-decoration: none;
 }
-#firechat .dropdown-toggle.btn {
+#firechat .firechat-dropdown-toggle.btn {
   padding: 4px 0 0;
   height: 22px;
 }
-#firechat .dropdown-menu {
+#firechat .firechat-dropdown-menu {
   *zoom: 1;
   -webkit-border-top-right-radius: 0;
   -webkit-border-bottom-right-radius: 4px;
@@ -443,22 +443,22 @@
   padding: 0;
   margin: -1px 0 0;
 }
-#firechat .dropdown-menu:before,
-#firechat .dropdown-menu:after {
+#firechat .firechat-dropdown-menu:before,
+#firechat .firechat-dropdown-menu:after {
   display: table;
   content: "";
   line-height: 0;
 }
-#firechat .dropdown-menu:after {
+#firechat .firechat-dropdown-menu:after {
   clear: both;
 }
-#firechat .dropdown-menu ul {
+#firechat .firechat-dropdown-menu ul {
   background-color: #ffffff;
   list-style: none;
   overflow-y: scroll;
   max-height: 300px;
 }
-#firechat .dropdown-menu ul > li > a {
+#firechat .firechat-dropdown-menu ul > li > a {
   display: block;
   padding: 1px 1px 1px 3px;
   clear: both;
@@ -467,36 +467,36 @@
   color: #333333;
   white-space: nowrap;
 }
-#firechat .dropdown-menu ul > li > a.highlight {
+#firechat .firechat-dropdown-menu ul > li > a.highlight {
   background-color: #d9edf7;
 }
-#firechat .dropdown-menu ul > li > a:hover,
-#firechat .dropdown-menu ul > li > a:focus,
-#firechat .dropdown-menu ul > .active > a,
-#firechat .dropdown-menu ul > .active > a:hover,
-#firechat .dropdown-menu ul > .active > a:focus {
+#firechat .firechat-dropdown-menu ul > li > a:hover,
+#firechat .firechat-dropdown-menu ul > li > a:focus,
+#firechat .firechat-dropdown-menu ul > .active > a,
+#firechat .firechat-dropdown-menu ul > .active > a:hover,
+#firechat .firechat-dropdown-menu ul > .active > a:focus {
   text-decoration: none;
   color: #000000;
   background-color: #d9edf7;
   outline: 0;
 }
-#firechat .dropdown-menu ul > .disabled > a,
-#firechat .dropdown-menu ul > .disabled > a:hover,
-#firechat .dropdown-menu ul > .disabled > a:focus {
+#firechat .firechat-dropdown-menu ul > .disabled > a,
+#firechat .firechat-dropdown-menu ul > .disabled > a:hover,
+#firechat .firechat-dropdown-menu ul > .disabled > a:focus {
   color: #999999;
   text-decoration: none;
   background-color: transparent;
   background-image: none;
   cursor: default;
 }
-#firechat .dropdown-header {
+#firechat .firechat-dropdown-header {
   position: relative;
   width: 100%;
   padding: 10px 0;
   background-color: #eeeeee;
   border-bottom: 1px solid #cccccc;
 }
-#firechat .dropdown-footer {
+#firechat .firechat-dropdown-footer {
   position: relative;
   width: 100%;
   padding: 10px 0px;
@@ -509,7 +509,7 @@
 #firechat .open {
   *z-index: 1000;
 }
-#firechat .open > .dropdown-menu {
+#firechat .open > .firechat-dropdown-menu {
   display: block;
   border: 1px solid #cccccc;
   -webkit-border-top-right-radius: 0;
@@ -525,7 +525,7 @@
   border-bottom-left-radius: 4px;
   border-top-left-radius: 0;
 }
-#firechat .open > .dropdown-toggle {
+#firechat .open > .firechat-dropdown-toggle {
   outline: none;
   text-decoration: none;
   -webkit-border-top-right-radius: 4px;
@@ -880,7 +880,7 @@
   vertical-align: middle;
   padding-bottom: 5px;
 }
-#firechat .tab-pane-menu .dropdown {
+#firechat .tab-pane-menu .firechat-dropdown {
   margin: 5px 0 0 5px;
 }
 #firechat .tab-pane-menu > .icon {
