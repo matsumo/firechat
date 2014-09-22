@@ -162,7 +162,7 @@
     _onChatInvite: function(invitation) {
       var self = this;
       var template = FirechatDefaultTemplates["templates/prompt-invitation.html"];
-      var $prompt = this.prompt('Invite', template(invitation));
+      var $prompt = this.prompt('招待', template(invitation));
       $prompt.find('a.close').click(function() {
         $prompt.remove();
         self._chat.declineInvite(invitation.id);
@@ -189,12 +189,12 @@
           $prompt;
 
       if (invitation.status && invitation.status === 'accepted') {
-        $prompt = this.prompt('Accepted', template(invitation));
+        $prompt = this.prompt('許可しました', template(invitation));
         this._chat.getRoom(invitation.roomId, function(room) {
           self.attachTab(invitation.roomId, room.name);
         });
       } else {
-        $prompt = this.prompt('Declined', template(invitation));
+        $prompt = this.prompt('拒否しました', template(invitation));
       }
 
       $prompt.find('a.close').click(function() {
@@ -549,7 +549,7 @@
 
       // Require user confirmation for muting.
       if (!isMuted) {
-        var $prompt = self.prompt('Mute User?', template({
+        var $prompt = self.prompt('ユーザをミュート?', template({
           userName: userName
         }));
 
@@ -589,7 +589,7 @@
               $prompt;
 
           self._chat.getRoom(roomId, function(room) {
-            $prompt = self.prompt('Invite', template({
+            $prompt = self.prompt('招待', template({
               userName: userName,
               roomName: room.name
             }));
@@ -621,9 +621,9 @@
               $prompt;
 
           if (userId && userName) {
-            $prompt = self.prompt('Private Invite', template({
+            $prompt = self.prompt('プライベートチャットの招待', template({
               userName: userName,
-              roomName: 'Private Chat'
+              roomName: 'プライベートチャット'
             }));
 
             $prompt.find('a.close').click(function() {
@@ -638,7 +638,7 @@
 
             $prompt.find('[data-toggle=accept]').first().click(function() {
               $prompt.remove();
-              var roomName = 'Private Chat';
+              var roomName = 'プライベートチャット';
               self._chat.createRoom(roomName, 'private', function(roomId) {
                 self._chat.inviteUser(userId, roomId, roomName);
               });
@@ -1072,13 +1072,14 @@
    */
   FirechatUI.prototype.formatTime = function(timestamp) {
     var date = (timestamp) ? new Date(timestamp) : new Date(),
-        hours = date.getHours() || 12,
-        minutes = '' + date.getMinutes(),
-        ampm = (date.getHours() >= 12) ? 'pm' : 'am';
+        hours = '' + date.getHours()/* || 12*/,
+        minutes = '' + date.getMinutes()/*,
+        ampm = (date.getHours() >= 12) ? 'pm' : 'am'*/;
 
-    hours = (hours > 12) ? hours - 12 : hours;
+//    hours = (hours > 12) ? hours - 12 : hours;
+    hours = (hours.length < 2) ? '0' + hours : hours;
     minutes = (minutes.length < 2) ? '0' + minutes : minutes;
-    return '' + hours + ':' + minutes + ampm;
+    return '' + hours + ':' + minutes /*+ ampm*/;
   };
 
   /**
@@ -1088,7 +1089,7 @@
     var self = this;
     var template = FirechatDefaultTemplates["templates/prompt-create-room.html"];
 
-    var $prompt = this.prompt('Create Public Room', template({
+    var $prompt = this.prompt('パブリックルームの作成', template({
       maxLengthRoomName: this.maxLengthRoomName,
       isModerator: self._chat.userIsModerator()
     }));

@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Download from https://github.com/firebase/Firechat -->
+  <link rel="stylesheet" href="/build/firechat-default.min.css" />
+  <script src="/build/firechat-default.min.js"></script>
+  <style>
+    #firechat-wrapper {
+      height: 475px;
+      max-width: 325px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #efe;
+      text-align: center;
+      margin: 50px auto;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      -webkit-box-shadow: 0 5px 25px #666;
+      -moz-box-shadow: 0 5px 25px #666;
+      box-shadow: 0 5px 25px #666;
+    }
+  </style>
+</head>
+
+<!--
+  Example: Anonymous Authentication
+
+  This example uses Firebase Simple Login to create 'anonymous' user sessions in Firebase,
+  meaning that user credentials are not required, though a user has a valid Firebase
+  authentication token and security rules still apply.
+
+  Requirements: in order to use this example with your own Firebase, you'll need to do the following:
+    1. Apply the security rules at https://github.com/firebase/firechat/blob/master/rules.json
+    2. Enable the 'Anonymous' authentication provider in Forge
+    3. Update the URL below to reference your Firebase
+    4. Update the room id for auto-entry with a public room you have created
+ -->
+<body>
+  <div id="firechat-wrapper" class="ui-widget-content">
+  </div>
+  <div id="firechat-login" title="ログイン">
+    <form>
+        <label for="email">メールアドレス:</label><br/>
+        <input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" /><br/>
+        <label for="password">パスワード:</label><br/>
+        <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" /><br/>
+        <label for="nickname">ニックネーム:</label><br/>
+        <input type="text" name="nickname" id="nickname" value="" class="text ui-widget-content ui-corner-all" /><br/>
+    </form>
+    <br/><button id="firechat-create">新規登録</button>&nbsp;&nbsp;<button id="firechat-guest">ゲスト</button>
+  </div>
+  <div id="firechat-adduser" title="新規登録">
+    <form>
+        <label for="aemail">メールアドレス:</label><br/>
+        <input type="text" name="aemail" id="aemail" value="" class="text ui-widget-content ui-corner-all" /><br/>
+        <label for="apassword">パスワード:</label><br/>
+        <input type="password" name="apassword" id="apassword" value="" class="text ui-widget-content ui-corner-all" /><br/>
+        <label for="anickname">ニックネーム:</label><br/>
+        <input type="text" name="anickname" id="anickname" value="" class="text ui-widget-content ui-corner-all" />
+    </form>
+  </div>
+  <script type='text/javascript'>
+    var chatRef = new Firebase('https://octoba-chat.firebaseio.com');
+    var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
+    var simpleLogin = new FirebaseSimpleLogin(chatRef, function(err, user) {
+      if (user){
+        if(user.provider == "password") {
+          chat.setUser(user.id, $.cookie("nickname")/*user.email.substr(0, user.email.indexOf("@"))*/);
+        }else if(user.provider == "twitter"){
+          chat.setUser(user.id, user.screen_name);
+        }else if(user.provider == "anonymous"){
+          chat.setUser(user.id, 'guest' + user.id.substr(0, 8));
+        }
+        setTimeout(function() {
+          chat._chat.enterRoom('-JVyY5zDNpLD3xdPj8Cy'/*octoba*/);
+        }, 500);
+        $( "#firechat-wrapper" ).show();
+      } else {
+//        simpleLogin.login(/*'anonymous'*/'twitter');    
+        $( "#firechat-login" ).dialog( "open" );
+      }
+    });
+//    simpleLogin.logout();
+
+    $(function() {
+      $( "#nickname" ).val($.cookie("nickname"));
+      $( "#email" ).val($.cookie("email"));
+      $( "#firechat-wrapper" ).draggable();
+//      $( "#firechat-wrapper" ).resizable();
+      $( "#firechat-wrapper" ).hide();
+      $( "#firechat-login" ).dialog({
+        autoOpen: false,
+        height: 365,
+        width: 280,
+        modal: true,
+        show: "fade",
+        hide: "fade",
+        buttons: {
+        "ログイン": function() {
+          var e = $( "#email" ).val();
+          var p = $( "#password" ).val();
+          var n = $( "#nickname" ).val();
+          if(e.length > 0 && p.length > 0 && n.length > 0){
+            $.cookie("email", e, { expires: 7 });
+            $.cookie("nickname", n, { expires: 7 });
+            simpleLogin.login('password', {
+              email: e,
+              password: p,
+              rememberMe: true
+            });
+            $( "#firechat-login" ).dialog( "close" );
+          }
+        },
+        "キャンセル": function() {
+          $( "#firechat-login" ).dialog( "close" );
+        }
+      },
+      open: function() {
+      },
+      close: function() {
+      }
+    });
+    $('#firechat-exit').button({
+      icons: {
+        primary: 'ui-icon-close'
+      },
+      text: false
+    });
+    $('#firechat-exit').click(function(){
+      simpleLogin.logout();
+      $( "#firechat-wrapper" ).hide();
+      $( "#firechat-login" ).dialog( "open" );
+    });
+    $('#firechat-create').click(function(){
+      $( "#firechat-login" ).dialog( "close" );
+      $( "#firechat-adduser" ).dialog( "open" );
+    });
+      $( "#firechat-adduser" ).dialog({
+        autoOpen: false,
+        height: 315,
+        width: 280,
+        modal: true,
+        show: "fade",
+        hide: "fade",
+        buttons: {
+        "登録": function() {
+          var e = $( "#aemail" ).val();
+          var p = $( "#apassword" ).val();
+          var n = $( "#anickname" ).val();
+          if(e.length > 0 && p.length > 0 && n.length > 0){
+            simpleLogin.createUser(e, p, function(error, user) {
+              if (error === null) {
+                $.cookie("email", e, { expires: 7 });
+                $.cookie("nickname", n, { expires: 7 });
+                $( "#nickname" ).val(n);
+                $( "#email" ).val(e);
+                simpleLogin.login('password', {
+                  email: e,
+                  password: p,
+                  rememberMe: true
+                });
+                $( "#firechat-adduser" ).dialog( "close" );
+                console.log("User created successfully:", user);
+              } else {
+                console.log("Error creating user:", error);
+              }
+            });
+          }
+        },
+        "キャンセル": function() {
+          $( "#firechat-adduser" ).dialog( "close" );
+          $( "#firechat-login" ).dialog( "open" );
+        }
+      },
+      open: function() {
+      },
+      close: function() {
+      }
+    });
+    $('#firechat-guest').click(function(){
+      $( "#firechat-login" ).dialog( "close" );
+      simpleLogin.login('anonymous', {rememberMe: true});
+    });
+  });
+  </script>
+</body>
+</html>

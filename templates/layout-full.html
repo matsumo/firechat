@@ -2,10 +2,10 @@
   <div id='firechat-header' class='clearfix'>
     <div class='clearfix'>
 
-      <div class='half firechat-dropdown' style=''>
+      <div class='twofifth firechat-dropdown' style=''>
         <a id='firechat-btn-rooms' class='firechat-dropdown-toggle btn full' data-toggle="firechat-dropdown" href='#'>
           <span class='icon user-chat'></span>
-          Chat Rooms
+          部屋
           <span class='caret'></span>
         </a>
         <div class='firechat-dropdown-menu full' role='menu'>
@@ -13,16 +13,16 @@
           <ul id='firechat-room-list'></ul>
 
           <div class='firechat-dropdown-footer aligncenter'>
-            <button type='button' class='btn twothird center' id='firechat-btn-create-room-prompt'>Create Room</button>
+            <button type='button' class='btn twothird center' id='firechat-btn-create-room-prompt'>新規作成</button>
           </div>
 
         </div>
 
       </div>
-      <div class='half firechat-dropdown' style=''>
+      <div class='twofifth firechat-dropdown' style=''>
         <a data-event='firechat-user-search-btn' class='btn full firechat-dropdown-toggle' data-toggle="firechat-dropdown" href='#'>
           <span class='icon user-group'></span>
-          Visitors
+          訪問者
           <span class='caret'></span>
         </a>
         <div class='firechat-dropdown-menu' role='menu'>
@@ -37,15 +37,16 @@
           <div class='firechat-dropdown-footer aligncenter clearfix'>
             <div id='firechat-user-search-controls' class='clearfix'>
               <span class="quarter"></span>
-              <button type='button' class='btn half' data-event='firechat-user-search' data-toggle='firechat-pagination-next' data-template='templates/user-search-list-item.html' data-target='firechat-user-search' data-controls='firechat-user-search-controls' disabled=disabled>Next</button>
+              <button type='button' class='btn half' data-event='firechat-user-search' data-toggle='firechat-pagination-next' data-template='templates/user-search-list-item.html' data-target='firechat-user-search' data-controls='firechat-user-search-controls' disabled=disabled>次へ</button>
             </div>
 
             <label class='center full'>
-              <small>Use "+ Invite" button within chat rooms for regular invites.</small>
+              <small>部屋への招待は<br/>「+招待」ボタン<br/>を使用します</small>
             </label>
           </div>
         </div>
       </div>
+      <a href='#!' id='firechat-exit' class='icon close right' style='15px 5px' title='ログアウト'></a>
     </div>
   </div>
   <div id='firechat-tabs' class='clearfix'>
